@@ -1,0 +1,37 @@
+﻿<MudNavMenu Style="background-color:black; height:100%; color:white;">
+    <MudText Typo="Typo.h6" Class="px-4 text-gradient" Align="Align.Center">DEMO APPLICATION</MudText>
+    <MudPaper Class="p-1 m-2" Style="background-color:#383839;">
+        <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary" Style="font-size:16px!important; color:#ffffffb2; border-radius:0">
+            Based on MudBlazor, Syncfusion, ApexCharts, BLazor 3D components
+        </MudText>
+    </MudPaper>
+
+    <MudDivider Class="my-2" />
+    <MudNavLink Href="/" Icon="@Icons.Filled.Dashboard">Dashboard</MudNavLink>
+
+    <MudNavGroup Title="MudBlazor" Icon="@Icons.Filled.Filter1" Expanded="false">
+        <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
+        <MudNavLink Href="carousel" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ViewCarousel">Carousel</MudNavLink>
+    </MudNavGroup>
+
+    <MudDivider Light="true" DividerType="DividerType.Middle" />
+    <MudNavGroup Title="Syncfusion" Icon="@Icons.Filled.Filter2" Expanded="false">
+        <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.GridOn">Fetch data</MudNavLink>
+        <MudNavLink Href="gantt" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.InsertChartOutlined">Gantt chart</MudNavLink>
+        <MudNavLink Href="scheduler" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Schedule">Scheduler</MudNavLink>
+        <MudNavLink Href="maps" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Map">Maps</MudNavLink>
+    </MudNavGroup>
+
+    <MudDivider Light="true" DividerType="DividerType.Middle" />
+    <MudNavGroup Title="Apex Charts" Icon="@Icons.Filled.Filter3" Expanded="false">
+        <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Area</MudNavLink>
+        <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Bar</MudNavLink>
+        <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Bubble</MudNavLink>
+        <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Pie</MudNavLink>
+    </MudNavGroup>
+
+    <MudDivider Light="true" DividerType="DividerType.Middle" />
+    <MudNavGroup Title="Blazor 3D" Icon="@Icons.Filled.Filter4" Expanded="false">
+        <MudNavLink Href="blazor3d" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled._3dRotation">Blazor3d Sample1</MudNavLink>
+    </MudNavGroup>
+</MudNavMenu>

@@ -1,0 +1,65 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+
+<MudThemeProvider IsDarkMode="@isDarkMode" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="2">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
+                       OnClick="@((e) => DrawerToggle())" />
+        <MudSpacer />
+        <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isDarkMode
+                             ToggledIcon="@Icons.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
+    </MudAppBar>
+
+    <MudDrawer @bind-Open="drawerOpen" Elevation="4" Style="height:100vh">
+      @*  <MudDrawerHeader Style="background-color:darkslategrey; height:var(--mud-appbar-height)">
+            <MudText Align=Align.End Typo="Typo.h6" Class="text-gradient pb-16">Mud + Sync</MudText>
+        </MudDrawerHeader>*@
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool drawerOpen = true;
+    bool isDarkMode;
+    public Theme theme = new();
+
+    protected override void OnInitialized()
+    {
+        isDarkMode = true;
+        SetTheme(isDarkMode);
+    }
+
+    void DrawerToggle()
+    {
+        drawerOpen = !drawerOpen;
+    }
+    private void ThemeToggle()
+    {
+        isDarkMode = !isDarkMode;
+
+        SetTheme(isDarkMode);
+    }
+    private void SetTheme(bool ischecked)
+    {
+        if (ischecked)
+        {
+            JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
+            theme = Theme.Bootstrap5Dark;
+        }
+        else
+        {
+            JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5");
+            theme = Theme.Bootstrap5;
+        }
+    }
+
+}

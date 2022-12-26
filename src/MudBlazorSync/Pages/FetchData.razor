@@ -1,0 +1,110 @@
+﻿@*https://learn.microsoft.com/ru-ru/aspnet/core/blazor/performance?view=aspnetcore-7.0*@
+
+@page "/fetchdata"
+@inject HttpClient Http
+@using MudBlazorSync.Shared
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Data
+
+<PageTitle>Weather forecast</PageTitle>
+
+<MudPaper Elevation="2" Class="p-3 my-3">
+    <MudText Typo="Typo.h4" GutterBottom="true" Class="text-gradient">Weather forecast</MudText>
+    <MudText Class="mb-8">This component demonstrates fetching data</MudText>
+</MudPaper>
+
+
+<MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Filled.Download" ButtonType="ButtonType.Reset" OnClick="LoadData" Variant="Variant.Outlined">Load Data</MudButton>
+
+<SfGrid @ref="DefaultGrid" ID="ThisGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false" AdaptiveUIMode="AdaptiveMode.Mobile"
+        AllowGrouping="false" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
+        AllowFiltering="false"
+        Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "PdfExport"})">
+    <GridPageSettings CurrentPage=1 PageSizes="@pagesizes" PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(Order.OrderID) MaxWidth="60" HeaderText="Order ID" IsPrimaryKey="true" ValidationRules="@(new ValidationRules{ Required=true})"
+                    TextAlign="TextAlign.Center"></GridColumn>
+        <GridColumn Field=@nameof(Order.CustomerID) MaxWidth="60" HeaderText="Customer Name" ValidationRules="@(new ValidationRules{ Required=true})"
+                    TextAlign="TextAlign.Center"></GridColumn>
+        <GridColumn Field=@nameof(Order.OrderDate) HeaderText="Order Date" EditType="EditType.DatePickerEdit" Format="d"
+                    TextAlign="TextAlign.Center" Type="ColumnType.Date" MaxWidth="60"></GridColumn>
+        <GridColumn Field=@nameof(Order.Freight) HeaderText="Freight" Format="C2" TextAlign="TextAlign.Center" EditType="EditType.NumericEdit"
+                    MaxWidth="40"></GridColumn>
+    </GridColumns>
+
+    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+    <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Order"></GridEvents>
+</SfGrid>
+
+@*
+<style>
+    :root {
+        --color-back:darkred;
+        --color-fore:white;
+    }
+
+    .e-grid .e-table{
+        background-color: var(--color-back);
+        color:white;
+    }
+    .e-control{
+        background-color:var(--color-back);
+    }
+
+    .e-toolbar .e-toolbar-items .e-toolbar-item:not(.e-separator) {
+        background-color: var(--color-back);
+    }
+
+</style>
+*@
+@code {
+    private SfGrid<Order>? DefaultGrid;
+    [Parameter]
+    public List<Order>? Orders { get; set; }
+    public object[] pagesizes = new object[] { 5, 10, 15, "All" };
+
+    protected override async Task OnParametersSetAsync()
+    {
+    }
+    private List<Order> GetOrders()
+    {
+        return Enumerable.Range(1, 75).Select(x => new Order()
+            {
+                OrderID = 1000 + x,
+                CustomerID = (new string[] { "ALFKI", "ANANTR", "ANTON", "BLONP", "BOLID" })[new Random().Next(5)],
+                Freight = 2.1 * x,
+                OrderDate = DateTime.Now.AddDays(-x),
+            }).ToList();
+    }
+    private async Task LoadData()
+    {
+        Orders = await Task.FromResult(GetOrders());
+
+    }
+    public class Order
+    {
+        public int? OrderID { get; set; }
+        public string? CustomerID { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public double? Freight { get; set; }
+    }
+
+    public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "ThisGrid_pdfexport")  //Id is combination of Grid's ID and itemname
+        {
+            PdfExportProperties ExportProperties = new PdfExportProperties();
+            ExportProperties.FileName = "OrdersTest.pdf";
+
+            await this.DefaultGrid.ExportToPdfAsync(ExportProperties);
+        }
+    }
+}
+
+
+
+
+
+
+

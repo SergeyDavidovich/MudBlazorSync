@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazor3D" Version="0.1.24" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.11" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="6.1.6" />
+    <PackageReference Include="Syncfusion.Blazor.Calendars" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Blazor.Gantt" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Blazor.Maps" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Blazor.Schedule" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.38" />
+  </ItemGroup>
+
+ 
+</Project>
