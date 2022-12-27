@@ -37,32 +37,53 @@
     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Order"></GridEvents>
 </SfGrid>
 
+
 @*
-<style>
+    <style>
     :root {
-        --color-back:darkred;
-        --color-fore:white;
+        --color-back: darkslateblue;
+        --color-fore: white;
     }
 
-    .e-grid .e-table{
+    .e-grid th.e-headercell {
         background-color: var(--color-back);
-        color:white;
     }
-    .e-control{
+
+    .e-emptyrow{
+        background-color: var(--color-back);
+    }
+
+    .e-grid tr.e-row.e-altrow {
+        background-color: var(--color-back);
+    }
+
+    .e-grid tr.e-row.e-row {
+        background-color: var(--color-back);
+    }
+
+    .e-grid .e-groupdroparea{
         background-color:var(--color-back);
     }
-
-    .e-toolbar .e-toolbar-items .e-toolbar-item:not(.e-separator) {
+    .e-pager {
         background-color: var(--color-back);
     }
 
+    .e-grid .e-filterbarcell, .e-grid .e-filterbarcelldisabled  {
+        background-color: var(--color-back);
+    }
+
+    .e-pager .e-prevpagedisabled .e-pager .e-numericitem {
+        background-color: var(--color-back);
+    }
 </style>
 *@
+
+
 @code {
     private SfGrid<Order>? DefaultGrid;
     [Parameter]
     public List<Order>? Orders { get; set; }
-    public object[] pagesizes = new object[] { 5, 10, 25 };//, "All" 
+    public object[] pagesizes = new object[] { 5, 10, 25 };//, "All"
 
     protected override async Task OnParametersSetAsync()
     {
