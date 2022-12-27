@@ -18,8 +18,8 @@
 <MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Filled.Download" ButtonType="ButtonType.Reset" OnClick="LoadData" Variant="Variant.Outlined">Load Data</MudButton>
 
 <SfGrid @ref="DefaultGrid" ID="ThisGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false" AdaptiveUIMode="AdaptiveMode.Mobile"
-        AllowGrouping="false" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
-        AllowFiltering="false"
+        AllowGrouping="true" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
+        AllowFiltering="true" AllowSelection="true"
         Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "PdfExport"})">
     <GridPageSettings CurrentPage=1 PageSizes="@pagesizes" PageSize="5"></GridPageSettings>
     <GridColumns>
@@ -62,26 +62,27 @@
     private SfGrid<Order>? DefaultGrid;
     [Parameter]
     public List<Order>? Orders { get; set; }
-    public object[] pagesizes = new object[] { 5, 10, 15, "All" };
+    public object[] pagesizes = new object[] { 5, 10, 25 };//, "All" 
 
     protected override async Task OnParametersSetAsync()
     {
+        //Orders = await GetOrders().AsTask();
     }
-    private List<Order> GetOrders()
+    private ValueTask<List<Order>> GetOrders()
     {
-        var orders = Enumerable.Range(1, 75).Select(x => new Order()
+        var orders = Enumerable.Range(1, 1000).Select(x => new Order()
             {
                 OrderID = 1000 + x,
                 CustomerID = (new string[] { "ALFKI", "ANANTR", "ANTON", "BLONP", "BOLID" })[new Random().Next(5)],
                 Freight = 2.1 * x,
                 OrderDate = DateTime.Now.AddDays(-x),
             }).ToList();
-        return orders;
+        return new ValueTask<List<Order>>(orders);
     }
     private async Task LoadData()
     {
-        Orders = await Task.FromResult(GetOrders());
-
+        //Orders = await Task.FromResult(GetOrders());
+        Orders = await GetOrders().AsTask();
     }
     public class Order
     {
