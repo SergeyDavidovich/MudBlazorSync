@@ -2,6 +2,48 @@
 
 <h3>ApexChartsPie</h3>
 
-@code {
+<div>
+    <div class="mb-3 card pie-card">
+        <ApexChart TItem="ProductsByCategory"
+                   Title="Products by categories">
+            <ApexPointSeries TItem="ProductsByCategory"
+                             Items="ProductsByCategories" 
+                             SeriesType="SeriesType.Pie"
+                             XValue="@(e=>e.CategoryName)"
+                             YAggregate="@(e=>e.Sum(e=>e.ProductsCount))"
+                             OrderByDescending="e=>e.Y"/>
+        </ApexChart>
+    </div>
+</div>
 
+<style>
+    .pie-card{
+        height: auto;
+        width: auto;
+    }
+</style>
+
+@code {
+    private List<ProductsByCategory> ProductsByCategories { get; set; } = new();
+
+    public class ProductsByCategory
+    {
+        public ProductsByCategory(string categoryName, int productsCount)
+        {
+            CategoryName = categoryName;
+            ProductsCount = productsCount;
+        }
+
+        public string CategoryName { get; }
+        public int ProductsCount { get; }
+    }
+
+    protected override void OnParametersSet()
+    {
+        ProductsByCategories.Add(new ("Category1", 5));
+        ProductsByCategories.Add(new ("Category2", 6));
+        ProductsByCategories.Add(new ("Category3", 8));
+        ProductsByCategories.Add(new ("Category4", 9));
+        ProductsByCategories.Add(new ("Category5", 15));
+    }
 }
