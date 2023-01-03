@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@inject NavigationManager navManager
 
 <MudThemeProvider IsDarkMode="@isDarkMode" />
 <MudDialogProvider />
@@ -7,8 +8,8 @@
 
 <MudLayout>
     <MudAppBar Elevation="2">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
-                       OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" 
+            Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
         <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isDarkMode
                              ToggledIcon="@Icons.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
@@ -47,9 +48,11 @@
         isDarkMode = !isDarkMode;
 
         SetTheme(isDarkMode);
+        //navManager.NavigateTo("options",false);
     }
     private void SetTheme(bool ischecked)
     {
+
         if (ischecked)
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
