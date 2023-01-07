@@ -2,7 +2,7 @@
 
 <h3>ApexChartsPie</h3>
 
-<div>
+<div id="pie-cards">
     <div class="mb-3 card pie-card">
         <ApexChart TItem="ProductsByCategory"
                    Title="Products by categories">
@@ -10,16 +10,17 @@
                              Items="ProductsByCategories" 
                              SeriesType="SeriesType.Pie"
                              XValue="@(e=>e.CategoryName)"
-                             YAggregate="@(e=>e.Sum(e=>e.ProductsCount))"
+                             YValue="@(e=>e.ProductsCount)"
                              OrderByDescending="e=>e.Y"/>
         </ApexChart>
     </div>
 </div>
 
 <style>
-    .pie-card{
-        height: auto;
-        width: auto;
+    #pie-cards{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
     }
 </style>
 
