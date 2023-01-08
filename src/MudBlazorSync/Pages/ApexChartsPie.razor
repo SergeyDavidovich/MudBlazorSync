@@ -1,5 +1,7 @@
 ﻿@page "/apexChartsPie"
 
+@using Theme = ApexCharts.Theme
+
 <MudPaper Elevation="2" Class="col-lg-12 p-3 my-3">
     <MudText Typo="Typo.h4" GutterBottom="true" Class="text-gradient">Apex charts pie</MudText>
     <MudText Class="mb-8">This component demonstrates pie charts from Apex charts</MudText>
@@ -8,19 +10,21 @@
 <div id="pie-cards">
     <div class="mb-3 card pie-card">
         <ApexChart TItem="ProductsByCategory"
-                   Title="Products by categories">
+                   Options="options"
+                   Title="Products by categories"
+                   @ref=@chart>
             <ApexPointSeries TItem="ProductsByCategory"
-                             Items="ProductsByCategories" 
+                             Items="ProductsByCategories"
                              SeriesType="SeriesType.Pie"
                              XValue="@(e=>e.CategoryName)"
                              YValue="@(e=>e.ProductsCount)"
-                             OrderByDescending="e=>e.Y"/>
+                             OrderByDescending="e=>e.Y" />
         </ApexChart>
     </div>
 </div>
 
 <style>
-    #pie-cards{
+    #pie-cards {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
@@ -28,7 +32,13 @@
 </style>
 
 @code {
+    [CascadingParameter(Name = "IsDarkMode")]
+    private bool IsDarkMode { get; set; }
+    private bool isDarkMode;
+
     private List<ProductsByCategory> ProductsByCategories { get; set; } = new();
+    private ApexChartOptions<ProductsByCategory>? options;
+    private ApexChart<ProductsByCategory>? chart;
 
     public class ProductsByCategory
     {
@@ -42,12 +52,44 @@
         public int ProductsCount { get; }
     }
 
-    protected override void OnParametersSet()
+    private async Task ChangeChartThemeAsync()
     {
-        ProductsByCategories.Add(new ("Category1", 5));
-        ProductsByCategories.Add(new ("Category2", 6));
-        ProductsByCategories.Add(new ("Category3", 8));
-        ProductsByCategories.Add(new ("Category4", 9));
-        ProductsByCategories.Add(new ("Category5", 15));
+        if (chart is null)
+        {
+            return;
+        }
+
+        if (IsDarkMode)
+        {
+            options.Theme.Mode = Mode.Dark;
+        }
+        else
+        {
+            options.Theme.Mode = Mode.Light;
+        }
+
+        await chart.RenderAsync();
+    }
+
+    protected override void OnInitialized()
+    {
+        ProductsByCategories.Add(new("Category1", 5));
+        ProductsByCategories.Add(new("Category2", 6));
+        ProductsByCategories.Add(new("Category3", 8));
+        ProductsByCategories.Add(new("Category4", 9));
+        ProductsByCategories.Add(new("Category5", 15));
+
+        options = new()
+            {
+                Theme = new()
+                {
+                    Mode = IsDarkMode ? Mode.Dark : Mode.Light
+                }
+            };
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ChangeChartThemeAsync();
     }
 }

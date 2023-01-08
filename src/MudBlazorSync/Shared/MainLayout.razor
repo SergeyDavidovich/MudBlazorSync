@@ -18,17 +18,20 @@
     </MudAppBar>
 
     <MudDrawer @bind-Open="drawerOpen" Elevation="4" Style="height:100vh">
-      @*  <MudDrawerHeader Style="background-color:darkslategrey; height:var(--mud-appbar-height)">
-            <MudText Align=Align.End Typo="Typo.h6" Class="text-gradient pb-16">Mud + Sync</MudText>
+        @*  <MudDrawerHeader Style="background-color:darkslategrey; height:var(--mud-appbar-height)">
+        <MudText Align=Align.End Typo="Typo.h6" Class="text-gradient pb-16">Mud + Sync</MudText>
         </MudDrawerHeader>*@
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
-            @Body
-        </MudContainer>
+        <CascadingValue Name="IsDarkMode" Value=@isDarkMode>
+            <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
+                @Body
+            </MudContainer>
+        </CascadingValue>
     </MudMainContent>
 </MudLayout>
+
 
 @code {
     bool drawerOpen = true;
