@@ -6,11 +6,6 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudOverlay Visible="isOverlayVisible" AutoClose="true" DarkBackground="false" ZIndex="9999" Style="background-color:#272627">
-    <MudImage Src="images/load.gif" Height="200" Width="340"></MudImage>
-    @*<MudProgressCircular Size="Size.Large" Color="Color.Warning" Indeterminate="true" />*@
-</MudOverlay>
-
 <MudLayout>
     <MudAppBar Elevation="2">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" 
@@ -51,21 +46,10 @@
     {
         drawerOpen = !drawerOpen;
     }
-    private async Task ThemeToggle()
+    private void ThemeToggle()
     {
-        isOverlayVisible = true;
-
-
         isDarkMode = !isDarkMode;
         SetTheme(isDarkMode);
-        StateHasChanged();
-        
-        await Task.Delay(900);
-
-        isOverlayVisible = false;
-        StateHasChanged();
-
-
     }
 
     private void DarkModeChanged()
