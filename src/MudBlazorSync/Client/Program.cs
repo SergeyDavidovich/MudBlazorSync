@@ -1,4 +1,3 @@
-//https://blazored.github.io/Modal - for overlay creation
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -28,4 +27,4 @@ namespace Sync
             await builder.Build().RunAsync();
         }
     }
-}
+} 
