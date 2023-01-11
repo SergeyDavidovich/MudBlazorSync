@@ -34,7 +34,6 @@
     bool drawerOpen = true;
     bool isMudDarkMode;
     bool isOverlayVisible=false;
-    //public Syncfusion.Blazor.Theme theme = new();
 
     protected override void OnInitialized()
     {
@@ -63,12 +62,10 @@
         if (isSyncDark)
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
-            //theme = Theme.Bootstrap5Dark;
         }
         else
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5");
-            //theme = Theme.Bootstrap5;
         }
 
     }
