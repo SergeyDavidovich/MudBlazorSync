@@ -2,7 +2,7 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager navManager
 
-<MudThemeProvider IsDarkMode="@isDarkMode" IsDarkModeChanged="DarkModeChanged" />
+<MudThemeProvider IsDarkMode="@isMudDarkMode" IsDarkModeChanged="DarkModeChanged" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -11,7 +11,7 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" 
             Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isDarkMode
+        <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isMudDarkMode
                              ToggledIcon="@Icons.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
     </MudAppBar>
 
@@ -32,14 +32,14 @@
 
 @code {
     bool drawerOpen = true;
-    bool isDarkMode;
+    bool isMudDarkMode;
     bool isOverlayVisible=false;
-    public Syncfusion.Blazor.Theme theme = new();
+    //public Syncfusion.Blazor.Theme theme = new();
 
     protected override void OnInitialized()
     {
-        isDarkMode = true;
-        SetTheme(isDarkMode);
+        isMudDarkMode = true;
+        SetSyncTheme(isMudDarkMode);
     }
 
     void DrawerToggle()
@@ -48,8 +48,8 @@
     }
     private void ThemeToggle()
     {
-        isDarkMode = !isDarkMode;
-        SetTheme(isDarkMode);
+        isMudDarkMode = !isMudDarkMode;
+        SetSyncTheme(isMudDarkMode);
     }
 
     private void DarkModeChanged()
@@ -57,23 +57,19 @@
         //isOverlayVisible = true;
         //StateHasChanged();
     }
-    private void SetTheme(bool ischecked)
+    private void SetSyncTheme(bool isSyncDark)
     {
 
-        if (ischecked)
+        if (isSyncDark)
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
-            theme = Theme.Bootstrap5Dark;
+            //theme = Theme.Bootstrap5Dark;
         }
         else
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5");
-            theme = Theme.Bootstrap5;
+            //theme = Theme.Bootstrap5;
         }
 
     }
-
-    //->
-   
-
 }
