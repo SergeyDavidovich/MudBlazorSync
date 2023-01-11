@@ -33,7 +33,7 @@
             <h4>Loading ...</h4>
         </div>
         <div style="height: 100vh; width: 100%; background-color: #272627; display: flex; align-items: center; justify-content: center;">
-            <img height="200" width="340" src="images/load.gif" />
+            <img height="200" width="320" src="images/load.gif" />
         </div>
     </div>
 
@@ -48,13 +48,12 @@
     <script src="_content/Blazor-ApexCharts/js/blazor-apex-charts.js"></script>
     <script>
         function setTheme(theme) {
-        document.getElementsByTagName('body')[0].style.display = 'none';
+        //document.getElementsByTagName('body')[0].style.display = 'none';
 
         let synclink = document.getElementById('theme');
         synclink.href = '_content/Syncfusion.Blazor.Themes/' + theme + '.css';
-        //synclink.href = 'https://cdn.syncfusion.com/blazor/20.4.0.40/styles/' + theme + '.css';
 
-        setTimeout(function () { document.getElementsByTagName('body')[0].style.display = 'block'; }, 200);
+        //setTimeout(function () { document.getElementsByTagName('body')[0].style.display = 'block'; }, 200);
         }
     </script>
 </body>
