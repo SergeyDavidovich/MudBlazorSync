@@ -1,19 +1,21 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@inject NavigationManager navManager
 
 @using Theme = Syncfusion.Blazor.Theme
 @using Color = MudBlazor.Color
 
 <MudThemeProvider IsDarkMode="@isDarkMode" />
+<MudThemeProvider IsDarkMode="@isMudDarkMode" IsDarkModeChanged="DarkModeChanged" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="2">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
-                       OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" 
+            Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isDarkMode
+        <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isMudDarkMode
                              ToggledIcon="@Icons.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
     </MudAppBar>
 
@@ -32,16 +34,15 @@
     </MudMainContent>
 </MudLayout>
 
-
 @code {
     bool drawerOpen = true;
-    bool isDarkMode;
-    public Theme theme = new();
+    bool isMudDarkMode;
+    bool isOverlayVisible=false;
 
     protected override void OnInitialized()
     {
-        isDarkMode = true;
-        SetTheme(isDarkMode);
+        isMudDarkMode = true;
+        SetSyncTheme(isMudDarkMode);
     }
 
     void DrawerToggle()
@@ -50,22 +51,26 @@
     }
     private void ThemeToggle()
     {
-        isDarkMode = !isDarkMode;
-
-        SetTheme(isDarkMode);
+        isMudDarkMode = !isMudDarkMode;
+        SetSyncTheme(isMudDarkMode);
     }
-    private void SetTheme(bool ischecked)
+
+    private void DarkModeChanged()
     {
-        if (ischecked)
+        //isOverlayVisible = true;
+        //StateHasChanged();
+    }
+    private void SetSyncTheme(bool isSyncDark)
+    {
+
+        if (isSyncDark)
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
-            theme = Theme.Bootstrap5Dark;
         }
         else
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5");
-            theme = Theme.Bootstrap5;
         }
-    }
 
+    }
 }

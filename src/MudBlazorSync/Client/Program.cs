@@ -1,10 +1,11 @@
+
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazorSync;
 using Syncfusion.Blazor;
 using MudBlazor.Services;
 
-// Version 20.4.0.38 = Nzg1ODE3QDMyMzAyZTM0MmUzMGoyN0JJQXc3VnArOHEzeVNtTlNVRXNMeVo4eDdZN3RMaUU4OGdtUG9BYTA9
+// Version 20.4.0.40 = ODg2NDk1QDMyMzAyZTM0MmUzMGM1UDJiM0N5d0VjaXY4Z1JXTHYxTENtMEh1YnlrRmEyMmpMOFJmTWUzcTQ9
 namespace Sync
 {
     public class Program
@@ -12,7 +13,7 @@ namespace Sync
         public static async Task Main(string[] args)
         {
             // Register Syncfusion license
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Nzg1ODE3QDMyMzAyZTM0MmUzMGoyN0JJQXc3VnArOHEzeVNtTlNVRXNMeVo4eDdZN3RMaUU4OGdtUG9BYTA9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("ODg2NDk1QDMyMzAyZTM0MmUzMGM1UDJiM0N5d0VjaXY4Z1JXTHYxTENtMEh1YnlrRmEyMmpMOFJmTWUzcTQ9");
 
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
@@ -26,4 +27,4 @@ namespace Sync
             await builder.Build().RunAsync();
         }
     }
-}
+} 
