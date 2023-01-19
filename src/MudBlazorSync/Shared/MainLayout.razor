@@ -5,7 +5,6 @@
 @using Theme = Syncfusion.Blazor.Theme
 @using Color = MudBlazor.Color
 
-<MudThemeProvider IsDarkMode="@isDarkMode" />
 <MudThemeProvider IsDarkMode="@isMudDarkMode" IsDarkModeChanged="DarkModeChanged" />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -26,7 +25,7 @@
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <CascadingValue Name="IsDarkMode" Value=@isDarkMode>
+        <CascadingValue Name="IsDarkMode" Value=@isMudDarkMode>
             <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
                 @Body
             </MudContainer>
