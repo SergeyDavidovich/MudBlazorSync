@@ -1,7 +1,9 @@
 ﻿@*https://learn.microsoft.com/ru-ru/aspnet/core/blazor/performance?view=aspnetcore-7.0*@
+@*https://blazorise.com/docs/extensions/animate*@
 
 @page "/fetchdata"
 @inject HttpClient Http
+@inject MudBlazorSync.Application.AppState appState
 @using MudBlazorSync.Shared
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Navigations
@@ -15,9 +17,11 @@
 </MudPaper>
 
 
-<MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Filled.Download" ButtonType="ButtonType.Reset" OnClick="LoadData" Variant="Variant.Outlined">Load Data</MudButton>
+<MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Material.Filled.Download" ButtonType="ButtonType.Reset" OnClick="LoadData" Variant="Variant.Outlined">Load Data</MudButton>
 
-<SfGrid @ref="DefaultGrid" ID="ThisGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false" AdaptiveUIMode="AdaptiveMode.Mobile"
+<Animate Auto="true" Animation="Animations.Fade" DurationMilliseconds=1000>
+
+<SfGrid @ref="DefaultGrid" style="@gridVisibility" ID="ThisGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false" AdaptiveUIMode="AdaptiveMode.Mobile"
         AllowGrouping="true" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
         AllowFiltering="true" AllowSelection="true"
         Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "PdfExport"})">
@@ -37,17 +41,29 @@
     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Order"></GridEvents>
 </SfGrid>
 
+</Animate>
+
 @code {
-    private SfGrid<Order>? DefaultGrid;
+    private SfGrid<Order> DefaultGrid;
+    private string gridVisibility;
+
     [Parameter]
     public List<Order>? Orders { get; set; }
+    [Parameter]
+    public bool IsDarkTheme { get; set; }
+
     public object[] pagesizes = new object[] { 5, 10, 25, "All" };
 
-    protected override async Task OnParametersSetAsync()
-    {
-        //Orders = await GetOrders().AsTask();
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    gridVisibility = "visibility:hidden";
+    //    await Task.Delay(1000);
+    //    gridVisibility = "visibility:visible";
 
+    //    //Orders = await GetOrders().AsTask();
+
+    //}
+        
     public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
         if (args.Item.Id == "ThisGrid_pdfexport")  //Id is combination of Grid's ID and itemname
@@ -58,10 +74,18 @@
             await this.DefaultGrid.ExportToPdfAsync(ExportProperties);
         }
     }
+  
+
     private async Task LoadData()
     {
-        //Orders = await Task.FromResult(GetOrders());
+        gridVisibility = "visibility:hidden";
+
         Orders = await GetOrders().AsTask();
+
+        await Task.Delay(500);
+        gridVisibility = "visibility:visible";
+
+
     }
 
     private ValueTask<List<Order>> GetOrders()
@@ -75,6 +99,7 @@
             }).ToList();
         return new ValueTask<List<Order>>(orders);
     }
+
     public class Order
     {
         public int? OrderID { get; set; }

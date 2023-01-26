@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazorSync", "src\MudBla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazorSync.Domain", "src\MudBlazorSync.Domain\MudBlazorSync.Domain.csproj", "{716EAA79-BC65-477D-AEE9-ACCB535C77FE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazorSync.Application", "src\MudBlazorSync.Application\MudBlazorSync.Application.csproj", "{3D052C78-BE0C-44CA-BCEF-BD23B9BA175D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudBlazorSync.IndexedDbStorage", "src\MudBlazorSync.IndexedDbStorage\MudBlazorSync.IndexedDbStorage.csproj", "{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{716EAA79-BC65-477D-AEE9-ACCB535C77FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{716EAA79-BC65-477D-AEE9-ACCB535C77FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{716EAA79-BC65-477D-AEE9-ACCB535C77FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D052C78-BE0C-44CA-BCEF-BD23B9BA175D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D052C78-BE0C-44CA-BCEF-BD23B9BA175D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D052C78-BE0C-44CA-BCEF-BD23B9BA175D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D052C78-BE0C-44CA-BCEF-BD23B9BA175D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +42,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{479ED91D-FE31-480E-95CE-EB4BD0BC2B48} = {78F5EA2C-BBD3-4E98-8C4B-321CAE76D815}
 		{716EAA79-BC65-477D-AEE9-ACCB535C77FE} = {78F5EA2C-BBD3-4E98-8C4B-321CAE76D815}
+		{3D052C78-BE0C-44CA-BCEF-BD23B9BA175D} = {78F5EA2C-BBD3-4E98-8C4B-321CAE76D815}
+		{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF} = {78F5EA2C-BBD3-4E98-8C4B-321CAE76D815}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32AEA3E6-D091-40C5-875B-E31D9BF0D7F5}

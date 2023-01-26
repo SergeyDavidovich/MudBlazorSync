@@ -1,61 +1,78 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
 @inject NavigationManager navManager
+@inject MudBlazorSync.Application.AppState appState
 
-<MudThemeProvider IsDarkMode="@isMudDarkMode" IsDarkModeChanged="DarkModeChanged" />
+<MudThemeProvider IsDarkMode="@isMudDarkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="2">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" 
-            Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                       Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText>@appState.IsDarkTheme.ToString()</MudText>
         <MudSpacer />
-        <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isMudDarkMode
-                             ToggledIcon="@Icons.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
+        <MudToggleIconButton Icon="@Icons.Material.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isMudDarkMode
+                             ToggledIcon="@Icons.Material.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
     </MudAppBar>
 
     <MudDrawer @bind-Open="drawerOpen" Elevation="4" Style="height:100vh">
-      @*  <MudDrawerHeader Style="background-color:darkslategrey; height:var(--mud-appbar-height)">
-            <MudText Align=Align.End Typo="Typo.h6" Class="text-gradient pb-16">Mud + Sync</MudText>
+        @*  <MudDrawerHeader Style="background-color:darkslategrey; height:var(--mud-appbar-height)">
+        <MudText Align=Align.End Typo="Typo.h6" Class="text-gradient pb-16">Mud + Sync</MudText>
         </MudDrawerHeader>*@
         <NavMenu />
     </MudDrawer>
-    <MudMainContent>
+
+@*    <div id="anchor">
+*@    <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
-            @Body
-        </MudContainer>
+@*            <Animate Anchor="anchor" @ref="Animator" Auto="@autoRun" Animation="Animations.FlipUp" DurationMilliseconds="1300">
+*@                @Body
+@*            </Animate>
+*@        </MudContainer>
     </MudMainContent>
-</MudLayout>
+@*    </div>
+*@</MudLayout>
 
 "style"
 
 @code {
+    //Animate Animator;
+    //bool autoRun=true;
     bool drawerOpen = true;
     bool isMudDarkMode;
-    bool isOverlayVisible=false;
 
-    protected override void OnInitialized()
-    {
-        isMudDarkMode = true;
-        SetSyncTheme(isMudDarkMode);
-    }
-
-    void DrawerToggle()
+    private void DrawerToggle()
     {
         drawerOpen = !drawerOpen;
     }
-    private void ThemeToggle()
+
+    protected override void OnInitialized()
     {
-        isMudDarkMode = !isMudDarkMode;
+        isMudDarkMode = GetDarkThemeValue();
+        appState.SetDarkTheme(isMudDarkMode);
         SetSyncTheme(isMudDarkMode);
     }
 
-    private void DarkModeChanged()
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    autoRun = false;
+    //}
+
+    private void ThemeToggle()
     {
-        //isOverlayVisible = true;
-        //StateHasChanged();
+        isMudDarkMode = !isMudDarkMode;
+        appState.SetDarkTheme(isMudDarkMode);
+        SetSyncTheme(isMudDarkMode);
     }
+
+    private bool GetDarkThemeValue()
+    {
+        return true;
+    }
+
+
     private void SetSyncTheme(bool isSyncDark)
     {
 
