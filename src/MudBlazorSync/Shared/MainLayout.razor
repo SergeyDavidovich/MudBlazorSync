@@ -24,24 +24,17 @@
         <NavMenu />
     </MudDrawer>
 
-@*    <div id="anchor">
-*@    <MudMainContent>
+    <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
-@*            <Animate Anchor="anchor" @ref="Animator" Auto="@autoRun" Animation="Animations.FlipUp" DurationMilliseconds="1300">
-*@                @Body
-@*            </Animate>
-*@        </MudContainer>
+            @Body
+        </MudContainer>
     </MudMainContent>
-@*    </div>
-*@</MudLayout>
-
-"style"
+</MudLayout>
 
 @code {
-    //Animate Animator;
-    //bool autoRun=true;
     bool drawerOpen = true;
     bool isMudDarkMode;
+    bool syncDarkMode = false;
 
     private void DrawerToggle()
     {
@@ -55,21 +48,19 @@
         SetSyncTheme(isMudDarkMode);
     }
 
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    autoRun = false;
-    //}
-
-    private void ThemeToggle()
+    private async Task ThemeToggle()
     {
+
+        syncDarkMode = !syncDarkMode;
+        SetSyncTheme(syncDarkMode);
+        await Task.Delay(50);
         isMudDarkMode = !isMudDarkMode;
         appState.SetDarkTheme(isMudDarkMode);
-        SetSyncTheme(isMudDarkMode);
     }
 
     private bool GetDarkThemeValue()
     {
-        return true;
+        return false;
     }
 
 
