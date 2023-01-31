@@ -1,4 +1,7 @@
-﻿<MudNavMenu Style="background-color:black; height:100%; color:white;">
+﻿@using Color = MudBlazor.Color
+@using Align = MudBlazor.Align
+
+<MudNavMenu Style="background-color:black; height:100%; color:white;">
     <MudText Typo="Typo.h6" Class="px-4 text-gradient" Align="MudBlazor.Align.Center">DEMO APPLICATION</MudText>
 
     <MudPaper Class="p-2 m-2" Style="border-radius:0!important">
@@ -31,7 +34,7 @@
         <MudNavLink Href="plotoptions" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">PlotOptions</MudNavLink>
         <MudNavLink Href="plotoptions" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Bar</MudNavLink>
         <MudNavLink Href="plotoptions" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Bubble</MudNavLink>
-        <MudNavLink Href="plotoptions" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Pie</MudNavLink>
+        <MudNavLink Href="apexChartsPie" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Pie</MudNavLink>
     </MudNavGroup>
 
     <MudDivider Light="true" DividerType="DividerType.Middle" />

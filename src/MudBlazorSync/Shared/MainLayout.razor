@@ -25,9 +25,11 @@
     </MudDrawer>
 
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
-            @Body
-        </MudContainer>
+        <CascadingValue Name="IsDarkMode" Value=@isMudDarkMode>
+            <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
+                @Body
+            </MudContainer>
+        </CascadingValue>
     </MudMainContent>
 </MudLayout>
 
