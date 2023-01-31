@@ -3,7 +3,7 @@
 @inject NavigationManager navManager
 @inject MudBlazorSync.Application.AppState appState
 
-<MudThemeProvider IsDarkMode="@isMudDarkMode" />
+<MudThemeProvider IsDarkMode="@isMudDarkMode"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -33,41 +33,49 @@
 
 @code {
     bool drawerOpen = true;
+
+    bool isDarkMode;
     bool isMudDarkMode;
-    bool syncDarkMode = false;
+    bool isSyncDarkMode;
 
     private void DrawerToggle()
     {
         drawerOpen = !drawerOpen;
     }
 
+    private void SetDarkTheme()
+    {
+        isDarkMode = true;
+    }
+
     protected override void OnInitialized()
     {
-        isMudDarkMode = GetDarkThemeValue();
-        appState.SetDarkTheme(isMudDarkMode);
-        SetSyncTheme(isMudDarkMode);
+        SetDarkTheme();
+
+        SetMudTheme(isDarkMode);
+        SetSyncTheme(isDarkMode);
+
+        //appState.SetDarkTheme(isDarkMode);
     }
 
     private async Task ThemeToggle()
     {
+        isDarkMode = !isDarkMode;
+        isSyncDarkMode = isDarkMode;
+        isMudDarkMode = isDarkMode;
 
-        syncDarkMode = !syncDarkMode;
-        SetSyncTheme(syncDarkMode);
-        await Task.Delay(50);
-        isMudDarkMode = !isMudDarkMode;
+        SetSyncTheme(isSyncDarkMode);
+
         appState.SetDarkTheme(isMudDarkMode);
     }
 
-    private bool GetDarkThemeValue()
+    private void SetMudTheme(bool isDark)
     {
-        return false;
+        isMudDarkMode = isDark;
     }
-
-
-    private void SetSyncTheme(bool isSyncDark)
+    private void SetSyncTheme(bool isDark)
     {
-
-        if (isSyncDark)
+        if (isDark)
         {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
         }

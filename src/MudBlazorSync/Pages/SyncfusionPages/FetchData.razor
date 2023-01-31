@@ -12,16 +12,17 @@
 <PageTitle>Syncfusion</PageTitle>
 
 <MudPaper Elevation="2" Class="p-3 my-3">
-    <MudText Typo="Typo.h4" GutterBottom="true" Class="text-gradient">Orders grid </MudText>
+    <MudText Typo="Typo.h4" GutterBottom="true" Class="text-gradient">Orders grid</MudText>
     <MudText Class="mb-8">This component demonstrates fetching data</MudText>
 </MudPaper>
 
+<MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Material.Filled.Download"
+           ButtonType="ButtonType.Reset" OnClick="LoadData" Variant="Variant.Outlined">
+    Load Data
+</MudButton>
 
-<MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Material.Filled.Download" ButtonType="ButtonType.Reset" OnClick="LoadData" Variant="Variant.Outlined">Load Data</MudButton>
-
-<Animate Auto="true" Animation="Animations.Fade" DurationMilliseconds=1000>
-
-<SfGrid @ref="DefaultGrid" style="@gridVisibility" ID="ThisGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false" AdaptiveUIMode="AdaptiveMode.Mobile"
+<SfGrid @ref="DefaultGrid" style="@gridVisibility" ID="SyncGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false"
+        AdaptiveUIMode="AdaptiveMode.Mobile"
         AllowGrouping="true" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
         AllowFiltering="true" AllowSelection="true"
         Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "PdfExport"})">
@@ -36,16 +37,13 @@
         <GridColumn Field=@nameof(Order.Freight) HeaderText="Freight" Format="C2" TextAlign="TextAlign.Center" EditType="EditType.NumericEdit"
                     MaxWidth="40"></GridColumn>
     </GridColumns>
-
     <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Order"></GridEvents>
 </SfGrid>
 
-</Animate>
-
 @code {
     private SfGrid<Order> DefaultGrid;
-    private string gridVisibility;
+    private string gridVisibility = "";
 
     [Parameter]
     public List<Order>? Orders { get; set; }
@@ -63,7 +61,7 @@
     //    //Orders = await GetOrders().AsTask();
 
     //}
-        
+
     public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
         if (args.Item.Id == "ThisGrid_pdfexport")  //Id is combination of Grid's ID and itemname
@@ -74,18 +72,11 @@
             await this.DefaultGrid.ExportToPdfAsync(ExportProperties);
         }
     }
-  
+
 
     private async Task LoadData()
     {
-        gridVisibility = "visibility:hidden";
-
         Orders = await GetOrders().AsTask();
-
-        await Task.Delay(500);
-        gridVisibility = "visibility:visible";
-
-
     }
 
     private ValueTask<List<Order>> GetOrders()
