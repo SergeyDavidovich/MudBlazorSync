@@ -1,21 +1,20 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
 @inject NavigationManager navManager
+@inject MudBlazorSync.Application.AppState appState
 
-@using Theme = Syncfusion.Blazor.Theme
-@using Color = MudBlazor.Color
-
-<MudThemeProvider IsDarkMode="@isMudDarkMode" IsDarkModeChanged="DarkModeChanged" />
+<MudThemeProvider IsDarkMode="@isMudDarkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="2">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" 
-            Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                       Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText>@appState.IsDarkTheme.ToString()</MudText>
         <MudSpacer />
-        <MudToggleIconButton Icon="@Icons.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isMudDarkMode
-                             ToggledIcon="@Icons.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
+        <MudToggleIconButton Icon="@Icons.Material.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isMudDarkMode
+                             ToggledIcon="@Icons.Material.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
     </MudAppBar>
 
     <MudDrawer @bind-Open="drawerOpen" Elevation="4" Style="height:100vh">
@@ -24,6 +23,7 @@
         </MudDrawerHeader>*@
         <NavMenu />
     </MudDrawer>
+
     <MudMainContent>
         <CascadingValue Name="IsDarkMode" Value=@isMudDarkMode>
             <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
@@ -36,29 +36,36 @@
 @code {
     bool drawerOpen = true;
     bool isMudDarkMode;
-    bool isOverlayVisible=false;
+    bool syncDarkMode = false;
 
-    protected override void OnInitialized()
-    {
-        isMudDarkMode = true;
-        SetSyncTheme(isMudDarkMode);
-    }
-
-    void DrawerToggle()
+    private void DrawerToggle()
     {
         drawerOpen = !drawerOpen;
     }
-    private void ThemeToggle()
+
+    protected override void OnInitialized()
     {
-        isMudDarkMode = !isMudDarkMode;
+        isMudDarkMode = GetDarkThemeValue();
+        appState.SetDarkTheme(isMudDarkMode);
         SetSyncTheme(isMudDarkMode);
     }
 
-    private void DarkModeChanged()
+    private async Task ThemeToggle()
     {
-        //isOverlayVisible = true;
-        //StateHasChanged();
+
+        syncDarkMode = !syncDarkMode;
+        SetSyncTheme(syncDarkMode);
+        await Task.Delay(50);
+        isMudDarkMode = !isMudDarkMode;
+        appState.SetDarkTheme(isMudDarkMode);
     }
+
+    private bool GetDarkThemeValue()
+    {
+        return false;
+    }
+
+
     private void SetSyncTheme(bool isSyncDark)
     {
 
