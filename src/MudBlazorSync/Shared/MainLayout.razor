@@ -64,9 +64,10 @@
     {
         isDarkMode = !isDarkMode;
         isSyncDarkMode = isDarkMode;
-        isMudDarkMode = isDarkMode;
 
         SetSyncTheme(isSyncDarkMode);
+        await Task.Delay(200);
+        isMudDarkMode = isDarkMode;
 
         appState.SetDarkTheme(isMudDarkMode);
     }

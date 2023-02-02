@@ -48,32 +48,29 @@
     <!-- Apex scripts -->
     <script src="_content/Blazor-ApexCharts/js/apex-charts.min.js"></script>
     <script src="_content/Blazor-ApexCharts/js/blazor-apex-charts.js"></script>
-    <!--<script src="_content/Blazor-ApexCharts/js/apex-charts.min.js"></script>
-    <script src="_content/Blazor-ApexCharts/js/blazor-apex-charts.js"></script>-->
 
     <!-- MudBlazor scripts -->
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
 
     <script>
         function setTheme(theme) {
-            document.getElementsByTagName('body')[0].style.display = 'none';
-
-            let synclink = document.getElementById('theme');
-            synclink.href = '_content/Syncfusion.Blazor.Themes/' + theme + '.css';
-
-            setTimeout(function () { document.getElementsByTagName('body')[0].style.display = 'block'; }, 200);
-        }
-        function setTheme1(theme) {
             //document.getElementsByTagName('body')[0].style.display = 'none';
 
-            document.getElementsById('SyncGrid')[0].style.display = 'none!important';
+            let synclink = document.getElementById('theme');
+            synclink.href = '_content/Syncfusion.Blazor.Themes/' + theme + '.css';
+
+            //setTimeout(function () { document.getElementsByTagName('body')[0].style.display = 'block'; }, 200);
+        }
+        function setTheme1(theme) {
+
+            //document.getElementsById('SyncComponent').style.display = 'none';
+            //document.getElementsByClassName('e-grid').style.display = 'none!important';
+
 
             let synclink = document.getElementById('theme');
             synclink.href = '_content/Syncfusion.Blazor.Themes/' + theme + '.css';
 
-            //setTimeout(function () { document.getElementsById('grid')[0].style.display = 'block'; }, 600);
-
-            //setTimeout(function () { document.getElementsByTagName('body')[0].style.display = 'block'; }, 200);
+            //setTimeout(function () { document.getElementsById('SyncComponent')[0].style.show()}, 200);
         }
     </script>
 </body>

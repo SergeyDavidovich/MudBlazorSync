@@ -44,8 +44,9 @@
 </SfGrid>
 
 @code {
+    //ElementReference DefaultGrid;
     private SfGrid<Order> DefaultGrid;
-    private string gridVisibility = "";
+    private string gridVisibility = "visible";
 
     [Parameter]
     public List<Order>? Orders { get; set; }
@@ -54,15 +55,14 @@
 
     public object[] pagesizes = new object[] { 5, 10, 25, "All" };
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    gridVisibility = "visibility:hidden";
-    //    await Task.Delay(1000);
-    //    gridVisibility = "visibility:visible";
+    protected override async Task OnInitializedAsync()
+    {
+        //gridVisibility = "visibility:hidden";
+        //await Task.Delay(3000);
+        //gridVisibility = "visibility:visible";
 
-    //    //Orders = await GetOrders().AsTask();
-
-    //}
+        Orders = await GetOrders().AsTask();
+    }
 
     public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
@@ -74,7 +74,6 @@
             await this.DefaultGrid.ExportToPdfAsync(ExportProperties);
         }
     }
-
 
     private async Task LoadData()
     {
