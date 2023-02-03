@@ -4,14 +4,14 @@
 <MudNavMenu Style="background-color:black; height:100%; color:white;">
     <MudText Typo="Typo.h6" Class="px-4 text-gradient" Align="MudBlazor.Align.Center">DEMO APPLICATION</MudText>
 
-    <MudPaper Class="p-2 m-2" Style="border-radius:0!important">
-        <MudStack Row="true">
+    <MudContainer>
+        <MudStack Class="m-2" Row="true">
             <MudBadge Color="MudBlazor.Color.Success" Overlap="true" Bordered="true">
                 <MudAvatar Image="images/avatar1.png" Size="Size.Medium" Class=""></MudAvatar>
             </MudBadge>
             <MudText Align="MudBlazor.Align.Right" Typo="Typo.h6">Bob</MudText>
         </MudStack>
-    </MudPaper>
+    </MudContainer>
 
     <MudDivider Class="my-2" />
     <MudNavLink Href="" Icon="@Icons.Material.Filled.Dashboard">Start</MudNavLink>

@@ -3,7 +3,7 @@
 @inject NavigationManager navManager
 @inject MudBlazorSync.Application.AppState appState
 
-<MudThemeProvider IsDarkMode="@isMudDarkMode"/>
+<MudThemeProvider IsDarkMode="@isMudDarkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -15,7 +15,6 @@
     <MudAppBar Elevation="2">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
                        Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudText>@appState.IsDarkTheme.ToString()</MudText>
         <MudSpacer />
         <MudToggleIconButton Icon="@Icons.Material.Filled.BrightnessHigh" Color="Color.Inherit" Toggled=@isMudDarkMode
                              ToggledIcon="@Icons.Material.Filled.BrightnessLow" ToggledChanged="@(_=>ThemeToggle())" />
@@ -86,7 +85,7 @@
         isOverlayVisible = true;
 
         SetSyncTheme(isSyncDarkMode);
-        await Task.Delay(400);
+        await Task.Delay(600);
 
         appState.SetDarkTheme(isMudDarkMode);
         isOverlayVisible = false;
