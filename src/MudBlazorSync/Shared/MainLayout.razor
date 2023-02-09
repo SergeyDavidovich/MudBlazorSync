@@ -56,22 +56,23 @@
     bool isSyncDarkMode;
 
     private void DrawerToggle() => drawerOpen = !drawerOpen;
-    private void SetDarkTheme() => isDarkMode = true;
+    private void SetDarkThemeValue() => isDarkMode = true;
 
     protected override async Task OnInitializedAsync()
     {
-        SetDarkTheme();
-
+        await SetThemeAsync();
+    }
+    private async Task SetThemeAsync()
+    {
         SetMudTheme(isDarkMode);
 
         isOverlayVisible = true;
-
         SetSyncTheme(isDarkMode);
         await Task.Delay(600);
         isOverlayVisible = false;
-        StateHasChanged();
 
-        //appState.SetDarkTheme(isDarkMode);
+        appState.SetDarkTheme(isDarkMode);
+        StateHasChanged();
     }
 
     private async Task ThemeToggle()
@@ -80,30 +81,16 @@
         isMudDarkMode = isDarkMode;
         isSyncDarkMode = isDarkMode;
 
-        SetMudTheme(isDarkMode);
-
-        isOverlayVisible = true;
-
-        SetSyncTheme(isSyncDarkMode);
-        await Task.Delay(600);
-
-        appState.SetDarkTheme(isMudDarkMode);
-        isOverlayVisible = false;
-        StateHasChanged();
+        await SetThemeAsync();
     }
 
     private void SetMudTheme(bool isDark) => isMudDarkMode = isDark;
-    
+
     private void SetSyncTheme(bool isDark)
     {
         if (isDark)
-        {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
-        }
         else
-        {
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5");
-        }
-
     }
 }
