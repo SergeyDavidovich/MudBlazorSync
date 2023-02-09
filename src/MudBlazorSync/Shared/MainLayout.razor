@@ -41,6 +41,7 @@
     }
 
     .overlay {
+        height: 100vh;
         position: absolute;
         background-color: rgb(25, 25, 25, 1);
         z-index: 1000;
@@ -54,22 +55,21 @@
     bool isMudDarkMode;
     bool isSyncDarkMode;
 
-    private void DrawerToggle()
-    {
-        drawerOpen = !drawerOpen;
-    }
+    private void DrawerToggle() => drawerOpen = !drawerOpen;
+    private void SetDarkTheme() => isDarkMode = true;
 
-    private void SetDarkTheme()
-    {
-        isDarkMode = true;
-    }
-
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         SetDarkTheme();
 
         SetMudTheme(isDarkMode);
+
+        isOverlayVisible = true;
+
         SetSyncTheme(isDarkMode);
+        await Task.Delay(600);
+        isOverlayVisible = false;
+        StateHasChanged();
 
         //appState.SetDarkTheme(isDarkMode);
     }
@@ -90,13 +90,10 @@
         appState.SetDarkTheme(isMudDarkMode);
         isOverlayVisible = false;
         StateHasChanged();
-
     }
 
-    private void SetMudTheme(bool isDark)
-    {
-        isMudDarkMode = isDark;
-    }
+    private void SetMudTheme(bool isDark) => isMudDarkMode = isDark;
+    
     private void SetSyncTheme(bool isDark)
     {
         if (isDark)
