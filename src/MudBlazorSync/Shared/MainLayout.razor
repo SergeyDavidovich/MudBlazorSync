@@ -25,8 +25,11 @@
     </MudDrawer>
 
     <MudMainContent>
-        <MudOverlay Class="overlay" Visible="isOverlayVisible" DarkBackground="true">
-            <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
+        <MudOverlay Class="overlay" Visible="isOverlayVisible">
+            <ChildContent>
+                <MudProgressCircular Color="Color.Info" Indeterminate="true" />
+                <MudText>Wait ...</MudText>
+            </ChildContent>
         </MudOverlay>
         <CascadingValue Name="IsDarkMode" Value=@isMudDarkMode>
             <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
