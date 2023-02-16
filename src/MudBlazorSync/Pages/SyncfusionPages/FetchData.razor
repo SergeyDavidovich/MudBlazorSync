@@ -19,7 +19,7 @@
 </MudPaper>
 
 <MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Material.Filled.Download"
-           ButtonType="ButtonType.Reset" OnClick="LoadData" Variant="Variant.Outlined">
+           ButtonType="ButtonType.Reset" OnClick="LoadDataAsync" Variant="Variant.Outlined">
     Load Data
 </MudButton>
 
@@ -57,11 +57,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //gridVisibility = "visibility:hidden";
-        //await Task.Delay(3000);
-        //gridVisibility = "visibility:visible";
-
-        Orders = await GetOrders().AsTask();
+        await LoadDataAsync();
     }
 
     public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
@@ -75,7 +71,7 @@
         }
     }
 
-    private async Task LoadData()
+    private async Task LoadDataAsync()
     {
         Orders = await GetOrders().AsTask();
     }
