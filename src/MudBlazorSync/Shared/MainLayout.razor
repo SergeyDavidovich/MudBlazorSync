@@ -7,9 +7,6 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudOverlay Class="overlay" Visible="isOverlayVisible" DarkBackground="true" Absolute="true">
-    <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
-</MudOverlay>
 
 <MudLayout Class="layout">
     <MudAppBar Elevation="2">
@@ -28,6 +25,9 @@
     </MudDrawer>
 
     <MudMainContent>
+        <MudOverlay Class="overlay" Visible="isOverlayVisible" DarkBackground="true">
+            <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
+        </MudOverlay>
         <CascadingValue Name="IsDarkMode" Value=@isMudDarkMode>
             <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
                 @Body
@@ -67,6 +67,7 @@
         SetMudTheme(isDarkMode);
 
         isOverlayVisible = true;
+        StateHasChanged();
         SetSyncTheme(isDarkMode);
         await Task.Delay(600);
         isOverlayVisible = false;
@@ -90,7 +91,7 @@
     {
         //string name;
 
-       //name = isDark=true ? "bootstrap5-dark":"bootstrap5";
+        //name = isDark=true ? "bootstrap5-dark":"bootstrap5";
 
         if (isDark)
             JSRuntime.InvokeAsync<string>("setTheme", "bootstrap5-dark");
