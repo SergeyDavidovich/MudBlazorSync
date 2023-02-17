@@ -24,30 +24,35 @@
         <NavMenu />
     </MudDrawer>
 
-    <MudMainContent>
-        <MudOverlay Class="overlay" Visible="isOverlayVisible" LockScroll="true">
-            <ChildContent>
-                <MudProgressCircular Color="Color.Info" Indeterminate="true" />
-                <MudText>Wait ...</MudText>
-            </ChildContent>
-        </MudOverlay>
+    <MudMainContent Class="content">
         <CascadingValue Name="IsDarkMode" Value=@isMudDarkMode>
             <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8">
                 @Body
             </MudContainer>
         </CascadingValue>
+        <MudOverlay Class="overlay" Visible="isOverlayVisible" LockScroll="true" Absolute="true">
+                <MudProgressCircular Color="Color.Info" Indeterminate="true" Class="progress" />
+        </MudOverlay>
     </MudMainContent>
 </MudLayout>
 <style>
     .layout {
-        height: 100vh;
+       min-height: 100vh;
     }
-
+    .content{
+        position: relative;
+        min-height: 100vh;
+    }
     .overlay {
-        height: 100vh;
+        height: auto;
         position: absolute;
         background-color: rgb(25, 25, 25, 1);
         z-index: 1000;
+    }
+    .progress{
+        position:fixed;
+        background-color:transparent;
+        top:400px;
     }
 </style>
 @code {
@@ -63,7 +68,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await SetThemeAsync();
+        //await SetThemeAsync();
     }
     private async Task SetThemeAsync()
     {

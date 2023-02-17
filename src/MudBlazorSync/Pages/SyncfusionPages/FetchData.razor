@@ -30,7 +30,7 @@
         AllowGrouping="true" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
         AllowFiltering="true" AllowSelection="true"
         Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "PdfExport"})">
-    <GridPageSettings CurrentPage=1 PageSizes="@pagesizes" PageSize="10"></GridPageSettings>
+    <GridPageSettings CurrentPage=1 PageSizes="@pagesizes" PageSize="25"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(Order.OrderID) MaxWidth="60" HeaderText="Order ID" IsPrimaryKey="true" ValidationRules="@(new ValidationRules{ Required=true})"
                     TextAlign="TextAlign.Center"></GridColumn>
