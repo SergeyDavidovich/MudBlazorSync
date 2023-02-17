@@ -3,16 +3,42 @@
 @using ApexCharts;
 
 <MudPaper Elevation="2" Class="col-lg-12 p-3 my-3">
-    <MudText Typo="Typo.h4" GutterBottom="true" Class="text-gradient">Apex charts pie</MudText>
+    <MudText Typo="Typo.h4" GutterBottom="true" Class="text-gradient">Pie</MudText>
     <MudText Class="mb-8">This component demonstrates pie charts from Apex charts</MudText>
 </MudPaper>
 
 <div id="pie-cards">
     <div class="mb-3 card pie-card">
-        <ApexChart TItem="ProductsByCategory"
+        <ApexChart TItem="ProductsByCategory" Height="400"
                    Options="options"
-                   Title="Products by categories"
-                   @ref=@chart>
+                   Title="Products by categories 1"
+                   @ref=@chart1>
+            <ApexPointSeries TItem="ProductsByCategory"
+                             Items="ProductsByCategories"
+                             SeriesType="SeriesType.Pie"
+                             XValue="@(e=>e.CategoryName)"
+                             YValue="@(e=>e.ProductsCount)"
+                             OrderByDescending="e=>e.Y" />
+        </ApexChart>
+    </div>
+    <div class="mb-3 card pie-card">
+        <ApexChart TItem="ProductsByCategory" Height="400"
+                   Options="options"
+                   Title="Products by categories 2"
+                   @ref=@chart2>
+            <ApexPointSeries TItem="ProductsByCategory"
+                             Items="ProductsByCategories"
+                             SeriesType="SeriesType.Pie"
+                             XValue="@(e=>e.CategoryName)"
+                             YValue="@(e=>e.ProductsCount)"
+                             OrderByDescending="e=>e.Y" />
+        </ApexChart>
+    </div>
+    <div class="mb-3 card pie-card">
+        <ApexChart TItem="ProductsByCategory" Height="400"
+                   Options="options"
+                   Title="Products by categories 3"
+                   @ref=@chart3>
             <ApexPointSeries TItem="ProductsByCategory"
                              Items="ProductsByCategories"
                              SeriesType="SeriesType.Pie"
@@ -25,9 +51,12 @@
 
 <style>
     #pie-cards {
-        display: box;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        display: flex;
+        flex-direction:row;
+    }
+    #pie-cards>div{
+        margin:auto;
+        background-color:aqua;
     }
 </style>
 
@@ -36,39 +65,11 @@
     private bool IsDarkMode { get; set; }
 
     private List<ProductsByCategory> ProductsByCategories { get; set; } = new();
-    private ApexChartOptions<ProductsByCategory>? options;
-    private ApexChart<ProductsByCategory>? chart;
 
-    public class ProductsByCategory
-    {
-        public ProductsByCategory(string categoryName, int productsCount)
-        {
-            CategoryName = categoryName;
-            ProductsCount = productsCount;
-        }
-
-        public string CategoryName { get; }
-        public int ProductsCount { get; }
-    }
-
-    private async Task ChangeChartThemeAsync()
-    {
-        if (chart is null)
-        {
-            return;
-        }
-
-        if (IsDarkMode)
-        {
-            options.Theme.Mode = Mode.Dark;
-        }
-        else
-        {
-            options.Theme.Mode = Mode.Light;
-        }
-
-        await chart.RenderAsync();
-    }
+    private ApexChartOptions<ProductsByCategory> options;
+    private ApexChart<ProductsByCategory> chart1;
+    private ApexChart<ProductsByCategory> chart2;
+    private ApexChart<ProductsByCategory> chart3;
 
     protected override void OnInitialized()
     {
@@ -91,4 +92,36 @@
     {
         await ChangeChartThemeAsync();
     }
+
+    public class ProductsByCategory
+    {
+        public ProductsByCategory(string categoryName, int productsCount)
+        {
+            CategoryName = categoryName;
+            ProductsCount = productsCount;
+        }
+
+        public string CategoryName { get; }
+        public int ProductsCount { get; }
+    }
+
+    private async Task ChangeChartThemeAsync()
+    {
+        if (chart1 is null)
+        {
+            return;
+        }
+
+        if (IsDarkMode)
+        {
+            options.Theme.Mode = Mode.Dark;
+        }
+        else
+        {
+            options.Theme.Mode = Mode.Light;
+        }
+
+        await chart1.RenderAsync();
+    }
+
 }

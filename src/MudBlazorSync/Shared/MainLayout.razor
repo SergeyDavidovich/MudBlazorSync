@@ -97,8 +97,8 @@
 
     private void SetSyncTheme(bool isDark)
     {
-        //string name = isDark ? "bootstrap5-dark":"bootstrap5";
-        string name = isDark ? "tailwind-dark" : "tailwind";
+        string name = isDark ? "bootstrap5-dark":"bootstrap5";
+        //string name = isDark ? "tailwind-dark" : "tailwind";
 
         JSRuntime.InvokeAsync<string>("setTheme", name);
     }
