@@ -28,7 +28,7 @@
         AllowGrouping="true" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
         AllowFiltering="true" AllowSelection="true"
         Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "PdfExport"})">
-    <GridPageSettings CurrentPage=1 PageSizes="@pagesizes" PageSize="5"></GridPageSettings>
+    <GridPageSettings CurrentPage=1 PageSizes="@pagesizes" PageSize="10"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(Order.OrderID) MaxWidth="60" HeaderText="Order ID" IsPrimaryKey="true" ValidationRules="@(new ValidationRules{ Required=true})"
                     TextAlign="TextAlign.Center"></GridColumn>
@@ -53,7 +53,8 @@
     [Parameter]
     public bool IsDarkTheme { get; set; }
 
-    public object[] pagesizes = new object[] { 5, 10, 25, "All" };
+    //public object[] pagesizes = new object[] { 5, 10, 25, "All" };
+    object[] pagesizes = null;
 
     protected override async Task OnInitializedAsync()
     {
