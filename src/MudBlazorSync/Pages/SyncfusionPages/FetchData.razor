@@ -18,10 +18,12 @@
     <MudText Class="mb-8">This component demonstrates fetching data</MudText>
 </MudPaper>
 
-<MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Material.Filled.Download"
+@*
+    <MudButton Class="mb-1" Size="Size.Small" Color="Color.Info" EndIcon="@Icons.Material.Filled.Download"
            ButtonType="ButtonType.Reset" OnClick="LoadDataAsync" Variant="Variant.Outlined">
     Load Data
 </MudButton>
+*@
 
 <SfGrid @ref="DefaultGrid" style="@gridVisibility" ID="SyncGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false"
         AdaptiveUIMode="AdaptiveMode.Mobile"
