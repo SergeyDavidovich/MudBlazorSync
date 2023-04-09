@@ -25,9 +25,8 @@
 </MudButton>
 *@
 
-<SfGrid @ref="DefaultGrid" style="@gridVisibility" ID="SyncGrid" DataSource="@Orders" TValue="@Order" AllowPaging="true" EnableAdaptiveUI="false"
-        AdaptiveUIMode="AdaptiveMode.Mobile"
-        AllowGrouping="true" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
+<SfGrid @ref="DefaultGrid" DataSource="@Orders" AllowPaging="true" EnableAdaptiveUI="false"
+        AdaptiveUIMode="AdaptiveMode.Mobile" AllowGrouping="true" AllowPdfExport="true" EnableVirtualization="false" EnablePersistence="false"
         AllowFiltering="true" AllowSelection="true"
         Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "PdfExport"})">
     <GridPageSettings PageSize="10"></GridPageSettings>
@@ -47,10 +46,9 @@
 
 @code {
     private SfGrid<Order> DefaultGrid;
-    private string gridVisibility = "visible";
 
     [Parameter]
-    public List<Order>? Orders { get; set; }
+    public IEnumerable<Order>Orders { get; set; }
     [Parameter]
     public bool IsDarkTheme { get; set; }
 
