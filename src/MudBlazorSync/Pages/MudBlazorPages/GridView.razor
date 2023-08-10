@@ -13,6 +13,63 @@
     <MudText Class="mb-8">This component demonstrates fetching data by MudBlazor GridView</MudText>
 </MudPaper>
 
+<MudDataGrid Items="@Orders">
+    <Columns>
+        <PropertyColumn Property="x => x.OrderID" Title="Order ID" />
+        <PropertyColumn Property="x => x.CustomerID" Title="Customer ID" />
+        <PropertyColumn Property="x => x.OrderDate" Title="Order date" />
+        <PropertyColumn Property="x => x.Freight" Title="Freight" />
+    </Columns>
+</MudDataGrid>
 @code {
+    private SfGrid<Order> DefaultGrid;
+
+    [Parameter]
+    public IEnumerable<Order> Orders { get; set; }
+    [Parameter]
+    public bool IsDarkTheme { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadDataAsync();
+    }
+
+    public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "ThisGrid_pdfexport")  //Id is combination of Grid's ID and itemname
+        {
+            PdfExportProperties ExportProperties = new PdfExportProperties();
+            ExportProperties.FileName = "OrdersTest.pdf";
+
+            await this.DefaultGrid.ExportToPdfAsync(ExportProperties);
+        }
+    }
+
+    private async Task LoadDataAsync()
+    {
+        Orders = await GetOrders().AsTask();
+    }
+
+    private ValueTask<List<Order>> GetOrders()
+    {
+        var orders = Enumerable.Range(1, 100).Select(x => new Order()
+            {
+                OrderID = 1000 + x,
+                CustomerID = (new string[] { "ALFKI", "ANANTR", "ANTON", "BLONP", "BOLID" })[new Random().Next(5)],
+                Freight = 2.1 * x,
+                OrderDate = DateTime.Now.AddDays(-x),
+            }).ToList();
+        return new ValueTask<List<Order>>(orders);
+    }
+
+    public class Order
+    {
+        public int? OrderID { get; set; }
+        public string? CustomerID { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public double? Freight { get; set; }
+    }
+
+}
 
 }
