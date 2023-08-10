@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazorSync.Domain", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazorSync.Application", "src\MudBlazorSync.Application\MudBlazorSync.Application.csproj", "{3D052C78-BE0C-44CA-BCEF-BD23B9BA175D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudBlazorSync.IndexedDbStorage", "src\MudBlazorSync.IndexedDbStorage\MudBlazorSync.IndexedDbStorage.csproj", "{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazorSync.IndexedDbStorage", "src\MudBlazorSync.IndexedDbStorage\MudBlazorSync.IndexedDbStorage.csproj", "{6CC34D8B-B26C-40AB-B3E3-51CD22EA33BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
